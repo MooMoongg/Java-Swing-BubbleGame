@@ -1,5 +1,8 @@
 package bubble.test.ex03;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,19 +15,15 @@ public class BubbleFrame extends JFrame{
 	public BubbleFrame() {
 		initObject();
 		initSetting();
+		initListener();
 		setVisible(true);
 	}
 	
 	private void initObject() {
 		backgroudMap = new JLabel(new ImageIcon("image/backgroundMap.png"));
 		setContentPane(backgroudMap);
-		
 		player = new Player();
 		add(player);
-		//backgroudMap.setSize(100, 100);
-		//backgroudMap.setLocation(300, 300);
-		//backgroudMap.setSize(1000, 600);
-		//add(backgroudMap);
 	}
 	
 	private void initSetting() {
@@ -32,6 +31,27 @@ public class BubbleFrame extends JFrame{
 		setLayout(null);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	private void initListener() {
+		addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				System.out.println(e.getKeyCode());
+				
+				switch (e.getKeyCode()) {
+				case KeyEvent.VK_LEFT:
+					player.left();
+					break;
+				case KeyEvent.VK_RIGHT:
+					player.right();
+					break;
+				case KeyEvent.VK_UP:
+					player.up();
+					break;
+				}
+			}
+		});
 	}
 	
 	public static void main(String[] args) {
