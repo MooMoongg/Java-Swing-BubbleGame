@@ -1,0 +1,16 @@
+# 이클립스 관련 파일 제외
+.metadata/
+.classpath
+.project
+
+# 빌드 폴더 제외
+bin/
+target/
+
+# IDE 설정 파일 제외
+*.iml
+.idea/
+
+# OS에서 자동 생성되는 파일 제외
+.DS_Store
+Thumbs.db
