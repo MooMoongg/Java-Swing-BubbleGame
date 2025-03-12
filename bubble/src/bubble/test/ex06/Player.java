@@ -1,4 +1,4 @@
-package bubble.test.ex05;
+package bubble.test.ex06;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -22,13 +22,14 @@ public class Player extends JLabel implements Moveable {
 
 	//플레이어 속도 상태
 	private final int SPEED = 4;
-	private final int JUMPSPEED = 3;
+	private final int JUMPSPEED = 2;
 	
 	private ImageIcon playerR, playerL;
 
 	public Player() {
 		initObject();
 		initSetting();
+		initBackgroundPlayerService();
 	}
 
 	private void initObject() {
@@ -37,7 +38,7 @@ public class Player extends JLabel implements Moveable {
 	}
 
 	private void initSetting() {
-		x = 55;
+		x = 80;
 		y = 535;
 
 		left = false;
@@ -50,6 +51,11 @@ public class Player extends JLabel implements Moveable {
 		setLocation(x, y);
 	}
 
+	private void initBackgroundPlayerService() {
+		new Thread(new BackgroundPlayerService(this)).start();
+	}
+	
+	
 	@Override
 	public void left() {
 		System.out.println("left");
