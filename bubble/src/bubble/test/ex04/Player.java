@@ -1,8 +1,13 @@
-package bubble.test.ex03;
+package bubble.test.ex04;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Player extends JLabel implements Moveable {
 
 	private int x;
@@ -12,7 +17,7 @@ public class Player extends JLabel implements Moveable {
 	private boolean right;
 	private boolean up;
 	private boolean down;
-	
+
 	private ImageIcon playerR, playerL;
 
 	public Player() {
@@ -33,7 +38,7 @@ public class Player extends JLabel implements Moveable {
 		right = false;
 		up = false;
 		down = false;
-		
+
 		setIcon(playerR);
 		setSize(50, 50);
 		setLocation(x, y);
@@ -41,16 +46,40 @@ public class Player extends JLabel implements Moveable {
 
 	@Override
 	public void left() {
-		setIcon(playerL);
-		x = x-10;
-		setLocation(x, y);
+		System.out.println("left");
+		left = true;
+		new Thread(() -> {
+			while (left) {
+				setIcon(playerL);
+				x = x - 1;
+				setLocation(x, y);
+				try {
+					Thread.sleep(10);// 1000분의 1초 0.01초
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+
 	}
 
 	@Override
 	public void right() {
-		setIcon(playerR);
-		x = x+10;
-		setLocation(x, y);
+		System.out.println("right");
+		right = true;
+		new Thread(() -> {
+			while (right) {
+				setIcon(playerR);
+				x = x + 1;
+				setLocation(x, y);
+				try {
+					Thread.sleep(10);// 1000분의 1초 0.01초
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+
 	}
 
 	@Override
