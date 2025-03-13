@@ -1,4 +1,4 @@
-package bubble.test.ex06;
+package bubble.test.ex07;
 
 public interface Moveable {
 	public abstract void left();
