@@ -84,11 +84,14 @@ public class Bubble extends JLabel implements Moveable{
 //			}
 			
 			
-			// 40과 60의 범위 절대값
-			if((Math.abs(x - enemy.getX()) > 40 && Math.abs(x - enemy.getX()) < 60 ) &&
+			// 아군과 적군이 거리가 10의 차이가 나면 
+			if((Math.abs(x - enemy.getX()) < 10) &&
 			    Math.abs(y - enemy.getY()) > 0 && Math.abs(y - enemy.getY()) < 50 ) {
 			    System.out.println("물방울이 적군과 충돌하였습니다.");
-			    attack();
+			    if(enemy.getState() == 0) {
+			    	attack();
+			    	break;
+			    }
 			}
 
 				
@@ -113,6 +116,15 @@ public class Bubble extends JLabel implements Moveable{
 				break;
 			}
 			
+			// 40과 60의 범위 절대값
+			if((Math.abs(x - enemy.getX()) < 10 ) &&
+			    Math.abs(y - enemy.getY()) > 0 && Math.abs(y - enemy.getY()) < 50 ) {
+			    System.out.println("물방울이 적군과 충돌하였습니다.");
+			    if(enemy.getState() == 0) {
+			    	attack();
+			    	break;
+			    }
+			}
 			try {
 				Thread.sleep(1);
 			} catch (InterruptedException e) {
@@ -134,20 +146,30 @@ public class Bubble extends JLabel implements Moveable{
 				break;
 			}
 			
+
+			
 			try {
-				Thread.sleep(1);
+				if(state ==0) { // 기본 물방울
+					Thread.sleep(1);
+				}else { // 적을 가둔 물방울
+					Thread.sleep(10);
+				}
+				
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
-		clearBubble(); //천장에 버블이 도착하고 나서 3초 후에 메모리에서 소멸
+		if(state == 0) clearBubble(); //천장에 버블이 도착하고 나서 3초 후에 메모리에서 소멸
 	}
 	
 	@Override
 	public void attack() {
 		state = 1;
+		enemy.setState(1);
 		setIcon(bubbled);
-	}
+		mContext.remove(enemy);
+		mContext.repaint();
+		}
 	
 	private void clearBubble() {
 		try {
